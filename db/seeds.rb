@@ -61,10 +61,16 @@ class Seed
   end
 
   def seed_transactions
-    CSV.foreach('db/data/transactions.csv', headers: true, header_converters: :symbol) do |row|
-      Transaction.create!(row.to_h)
-      end
-      puts "Transactions seeded."
+    CSV.foreach('db/data/transactions.csv', :headers => true) do |row|
+          Transaction.create!({
+            invoice_id: row["invoice_id"],
+            credit_card_number: row["credit_card_number"],
+            credit_card_expiration_date: row["credit_card_expiration_date"],
+            result: row["result"],
+            created_at: row["created_at"],
+            updated_at: row["updated_at"]})
+          end
+          puts "Transactions seeded."
   end
 end
 

@@ -114,4 +114,83 @@ describe "Items API" do
 
     expect(item["id"]).to eq(data_item.id)
   end
+
+  it "can find all items by name" do
+    data_item_1, data_item_2 = Fabricate.times(2, :item)
+
+    get "/api/v1/items/find_all?id=#{data_item_1.id}"
+
+    expect(response).to be_success
+
+    item_1 = JSON.parse(response.body).first
+
+    expect(item_1["id"]).to eq(data_item_1.id)
+  end
+
+  it "can find all items by name" do
+    data_item_1, data_item_2 = Fabricate.times(2, :item)
+
+    get "/api/v1/items/find_all?name=#{data_item_1.name}"
+
+    expect(response).to be_success
+
+    item_1 = JSON.parse(response.body).first
+
+    expect(item_1["name"]).to eq(data_item_1.name)
+  end
+
+  it "can find all items by description" do
+    data_item_1, data_item_2 = Fabricate.times(2, :item)
+
+    get "/api/v1/items/find_all?description=#{data_item_1.description}"
+
+    expect(response).to be_success
+
+    item_1 = JSON.parse(response.body).first
+
+    expect(item_1["id"]).to eq(data_item_1.id)
+  end
+
+  it "can find all items by unit price" do
+    data_item_1, data_item_2 = Fabricate.times(2, :item)
+
+    get "/api/v1/items/find_all?unit_price=#{data_item_1.unit_price}"
+
+    expect(response).to be_success
+
+    item_1 = JSON.parse(response.body).first
+
+    expect(item_1["unit_price"]).to eq(data_item_1.unit_price)
+  end
+
+  it "can find all items by merchant id" do
+    merchant = Fabricate(:merchant)
+    data_item_1, data_item_2 = Fabricate.times(2, :item, merchant: merchant)
+
+    get "/api/v1/items/find_all?merchant_id=#{data_item_1.merchant_id}"
+
+    expect(response).to be_success
+
+    item_1 = JSON.parse(response.body).first
+
+    expect(item_1["merchant_id"]).to eq(data_item_1.merchant_id)
+  end
+
+  it "can find a random item" do
+    data_items = Fabricate.times(50, :item)
+
+    get '/api/v1/items/random'
+
+    expect(response).to be_success
+    item_1 = JSON.parse(response.body)
+    data_item_2 = Item.find(item_1["id"])
+
+    get '/api/v1/items/random'
+
+    expect(response).to be_success
+    item_2 = JSON.parse(response.body)
+    data_item_2 = Item.find(item_2["id"])
+
+    expect(item_1).to_not eq(item_2)
+  end
 end

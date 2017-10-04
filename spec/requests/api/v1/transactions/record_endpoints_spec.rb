@@ -49,7 +49,7 @@ describe "Transactions API" do
     expect(data_transaction.id).to eq(transaction["id"])
   end
 
-  xit "can find all transactions by providing an invoice_id" do
+  it "can find all transactions by providing an invoice_id" do
     data_transaction_1, data_transaction_2 = Fabricate.times(2, :transaction)
 
     get "/api/v1/transactions/find_all?id=#{data_transaction_1.id}"
@@ -61,7 +61,7 @@ describe "Transactions API" do
     expect(transaction_1["id"]).to eq(data_transaction_1.id)
   end
 
-  xit "can find a random transaction" do
+  it "can find a random transaction" do
     data_merchants = Fabricate.times(50, :transaction)
 
     get '/api/v1/transactions/random'
@@ -79,7 +79,7 @@ describe "Transactions API" do
     expect(transaction_1).to_not eq(transaction_2)
   end
 
-  xit "can find all instances by updated at" do
+  it "can find all instances by updated at" do
     data_transactions = Fabricate.times(7, :transaction, updated_at: "2012-03-27T14:56:42.000Z9")
 
     get "/api/v1/transactions/find_all?updated_at=2012-03-27T14:56:42.000Z"

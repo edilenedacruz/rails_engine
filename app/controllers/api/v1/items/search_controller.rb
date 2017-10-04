@@ -1,4 +1,9 @@
 class Api::V1::Items::SearchController < ApplicationController
+
+  def index
+    render json: Item.where(item_params)
+  end
+  
   def show
     if params[:unit_price]
       render json: Item.find_by(unit_price: format_price(params[:unit_price]))

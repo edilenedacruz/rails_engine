@@ -12,4 +12,14 @@ describe "merchants API" do
       expect(merchants.count).to eq(3)
   end
 
+  it "can get one merchant by id" do
+    id = Fabricate(:merchant).id
+
+    get "/api/v1/merchants/#{id}.json"
+
+    merchant = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(merchant["id"]).to eq(id)
+  end
 end

@@ -13,4 +13,14 @@ describe "customers API" do
       expect(customers.count).to eq(3)
   end
 
+  it "can get one customers by id" do
+    id = Fabricate(:customer).id
+
+    get "/api/v1/customers/#{id}.json"
+
+    customer = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(customer["id"]).to eq(id)
+  end
 end

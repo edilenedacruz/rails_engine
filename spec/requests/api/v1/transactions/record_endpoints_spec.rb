@@ -12,4 +12,14 @@ describe "transactions API" do
       expect(transactions.count).to eq(3)
   end
 
+  it "can get one transaction by id" do
+    id = Fabricate(:transaction).id
+
+    get "/api/v1/transactions/#{id}.json"
+
+    transaction = JSON.parse(response.body)
+
+    expect(response).to be_success
+    expect(transaction["id"]).to eq(id)
+  end
 end

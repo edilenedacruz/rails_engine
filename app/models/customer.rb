@@ -7,5 +7,12 @@ class Customer < ApplicationRecord
 
   validates :first_name, :last_name, presence: true
 
-
+  def favorite_merchant
+    merchants.joins(:transactions, :invoices)
+      .merge(Transaction.success)
+      .select('merchants.*, count(invoices.customer_id) AS orders')
+      .group('merchants.id')
+      .order('orders DESC')
+      .first
+  end
 end

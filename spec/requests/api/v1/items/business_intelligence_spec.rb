@@ -62,7 +62,7 @@ describe "Items Business Intelligence" do
     expect(items_most_sold.last["name"]).to eq(item_least_sold.name)
   end
 
-  xit "returns the date with the most sales for the given item using the invoice date" do
+  it "returns the date with the most sales for the given item using the invoice date" do
     item = Fabricate(:item)
     invoice_1 = Fabricate(:invoice, created_at: "2017-03-16 23:58:29")
     invoice_2 = Fabricate(:invoice, created_at: "2017-03-16 23:58:29")
@@ -86,6 +86,6 @@ describe "Items Business Intelligence" do
 
     item_info = JSON.parse(response.body)
 
-    expect(item_info).to eq("2017-03-16T23:58:29.000Z")
+    expect(item_info["best_day"]).to eq("2017-03-16T23:58:29.000Z")
   end
 end

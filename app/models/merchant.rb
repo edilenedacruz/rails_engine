@@ -56,4 +56,14 @@ class Merchant < ApplicationRecord
       .order('frequency DESC')
       .first
   end
+
+  # def customers_with_pending_invoices
+  # boss mode
+  #   # binding.pry
+  #   customers
+  #   # .select('customers.*, count(invoices.merchant_id) AS purchases')
+  #   .joins(:invoices, :transactions)
+  #   .where.not(Transaction.success)
+  #   # self.customers.joins(:invoices, :transactions).where.not(status: 'success').select('customers.*')
+  # end
 end

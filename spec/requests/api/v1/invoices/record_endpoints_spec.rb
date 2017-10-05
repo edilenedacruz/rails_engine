@@ -109,21 +109,14 @@ describe "Invoices API" do
   end
 
   it "can find a random invoice" do
-    data_invoices = Fabricate.times(50, :invoice)
+    data_invoices = Fabricate.times(5, :invoice)
 
     get '/api/v1/invoices/random'
 
-    expect(response).to be_success
-    invoice_1 = JSON.parse(response.body)
-    data_invoice_2 = Invoice.find(invoice_1["id"])
-
-    get '/api/v1/invoices/random'
+    random_invoice = JSON.parse(response.body)
 
     expect(response).to be_success
-    invoice_2 = JSON.parse(response.body)
-    data_invoice_2 = Invoice.find(invoice_2["id"])
-
-    expect(invoice_1).to_not eq(invoice_2)
+    data_invoices.one? { |invoice| invoice.id == random_invoice["id"] }
   end
 
   it "can find all invoices by id" do

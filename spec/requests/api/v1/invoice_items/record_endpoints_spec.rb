@@ -77,7 +77,7 @@ describe "InvoiceItems API" do
 
   it "can search an invoice item by its unit price" do
     data_invoice_item = Fabricate(:invoice_item)
-    unit_price = "21.96"
+    unit_price = "20.00"
 
     get "/api/v1/invoice_items/find?unit_price=#{unit_price}"
     expect(response).to be_success
@@ -161,7 +161,7 @@ describe "InvoiceItems API" do
 
     expect(invoice_item_1["unit_price"]).to eq(data_invoice_item_1.unit_price)
   end
-  
+
   it "can find a random invoice item" do
     data_invoice_items = Fabricate.times(50, :invoice_item)
 

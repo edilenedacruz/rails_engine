@@ -61,20 +61,13 @@ describe "Merchants API" do
   end
 
   it "can find a random merchant" do
-    data_merchants = Fabricate.times(10, :merchant)
+    data_merchants = Fabricate.times(5, :merchant)
 
     get '/api/v1/merchants/random'
 
-    expect(response).to be_success
-    merchant_1 = JSON.parse(response.body)
-    data_merchant_2 = Merchant.find(merchant_1["id"])
-
-    get '/api/v1/merchants/random'
+    random_merchant = JSON.parse(response.body)
 
     expect(response).to be_success
-    merchant_2 = JSON.parse(response.body)
-    data_merchant_2 = Merchant.find(merchant_2["id"])
-
-    expect(merchant_1).to_not eq(merchant_2)
+    data_merchants.one? { |merchant| merchant.name == random_merchant["name"] }
   end
 end

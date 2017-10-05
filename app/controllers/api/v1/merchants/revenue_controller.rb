@@ -8,6 +8,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
   end
 
   def date_total
-    render json: format_price(Merchant.date_total_revenue(params[:date]))
+    total = format_to_currency(Merchant.date_total_revenue(params[:date]))
+    render json: { "total_revenue" => total }
   end
 end

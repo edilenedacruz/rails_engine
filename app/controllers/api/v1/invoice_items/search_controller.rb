@@ -3,7 +3,7 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
   def index
     render json: InvoiceItem.where(invoice_item_params )
   end
-  
+
   def show
     if params[:unit_price]
       render json: InvoiceItem.find_by(unit_price: format_price(params[:unit_price]))

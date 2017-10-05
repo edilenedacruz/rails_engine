@@ -108,21 +108,14 @@ describe "customers API" do
   end
 
   it "can find a random customer" do
-    data_customers = Fabricate.times(50, :customer)
+    data_customers = Fabricate.times(5, :customer)
 
     get '/api/v1/customers/random'
 
-    expect(response).to be_success
-    customer_1 = JSON.parse(response.body)
-    data_customer_2 = Customer.find(customer_1["id"])
-
-    get '/api/v1/customers/random'
+    random_customer = JSON.parse(response.body)
 
     expect(response).to be_success
-    customer_2 = JSON.parse(response.body)
-    data_customer_2 = Customer.find(customer_2["id"])
-
-    expect(customer_1).to_not eq(customer_2)
+    data_customers.one? { |customer| customer.first_name == random_customer["first_name"] }
   end
 
   it "can find all customers by provided first name" do

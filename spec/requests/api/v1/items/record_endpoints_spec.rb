@@ -66,16 +66,15 @@ describe "Items API" do
   end
 
   it "can search an item by its unit price" do
-    data_item = Fabricate(:item)
+    data_item = Fabricate(:item, unit_price: 5055)
     item_price = "50.55"
     get "/api/v1/items/find?unit_price=#{item_price}"
 
     expect(response).to be_success
 
     item = JSON.parse(response.body)
-
     expect(response).to be_success
-    expect(item["unit_price"]).to eq(data_item.unit_price)
+    expect((item.to_f * 100).round(2).to_i).to eq(data_item.unit_price)
   end
 
   it "can search an item by its merchant_id" do

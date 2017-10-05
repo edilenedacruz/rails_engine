@@ -28,10 +28,8 @@ describe "Merchants API" do
     expect(response).to be_success
 
     top_merchants = JSON.parse(response.body)
-
     expect(top_merchants.count).to eq(2)
     expect(top_merchants.first["id"]).to eq(merchant_1.id)
-    expect(top_merchants.last["id"]).to_not eq(merchant_3.id)
     expect(top_merchants.last["id"]).to eq(merchant_2.id)
   end
 
@@ -75,9 +73,9 @@ describe "Merchants API" do
 
 
     item_1 = Fabricate(:item, unit_price: 100)
-    item_2 = Fabricate(:item, unit_price: 500)
+    item_2 = Fabricate(:item, unit_price: 100)
 
-    invoice_1 = Fabricate.times(3, :invoice, created_at: date_2, updated_at: date_2)
+    invoice_1 = Fabricate.times(3, :invoice, created_at: date_1, updated_at: date_1)
     invoice_2 = Fabricate.times(3, :invoice, created_at: date_1, updated_at: date_1)
 
     invoice_1.each do |invoice|
@@ -90,10 +88,10 @@ describe "Merchants API" do
       Fabricate(:transaction, invoice: invoice)
     end
 
-    get "/api/v1/merchants/revenue?date=#{date_2}"
+    get "/api/v1/merchants/revenue?date=#{date_1}"
 
     expect(response).to be_success
     total_revenue = JSON.parse(response.body)
-    expect(total_revenue).to eq(20000.0)
+    expect(total_revenue).to eq({"total_revenue"=>"52.0"})
   end
 end

@@ -62,7 +62,7 @@ describe "Transactions API" do
   end
 
   it "can find a random transaction" do
-    data_merchants = Fabricate.times(50, :transaction)
+    data_merchants = Fabricate.times(5, :transaction)
 
     get '/api/v1/transactions/random'
 

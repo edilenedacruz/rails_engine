@@ -42,8 +42,8 @@ describe "Merchants API" do
     end
 
     get "/api/v1/merchants/#{merchant.id}/favorite_customer"
-
-    favorite = JSON.parse(response.body)["favorite"]
+    # binding.pry
+    favorite = JSON.parse(response.body)
     expect(favorite["first_name"]).to eq(customer_2.first_name)
   end
 end

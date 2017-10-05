@@ -74,7 +74,7 @@ describe "Items API" do
 
     item = JSON.parse(response.body)
     expect(response).to be_success
-    expect(item["unit_price"]).to eq(data_item.unit_price)
+    expect(item["unit_price"]).to eq("50.55")
   end
 
   it "can search an item by its merchant_id" do
@@ -159,7 +159,7 @@ describe "Items API" do
 
     item_1 = JSON.parse(response.body).first
 
-    expect(item_1["unit_price"]).to eq(data_item_1.unit_price)
+    expect(item_1["unit_price"]).to eq("50.00")
   end
 
   it "can find all items by merchant id" do

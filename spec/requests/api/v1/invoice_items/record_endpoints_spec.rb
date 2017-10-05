@@ -159,7 +159,7 @@ describe "InvoiceItems API" do
 
     invoice_item_1 = JSON.parse(response.body).first
 
-    expect(invoice_item_1["unit_price"]).to eq(data_invoice_item_1.unit_price)
+    expect(invoice_item_1["unit_price"]).to eq("20.00")
   end
 
   it "can find a random invoice item" do

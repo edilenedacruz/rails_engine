@@ -1,6 +1,6 @@
 Fabricator(:invoice_item) do
   item
   invoice
-  quantity{Faker::Number.number(1)}
+  quantity 5
   unit_price 2196
 end

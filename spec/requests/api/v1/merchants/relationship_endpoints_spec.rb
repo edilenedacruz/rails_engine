@@ -15,7 +15,7 @@ describe "Merchant Relationship Endpoint" do
     expect(merchant.id).to eq(items.last.merchant_id)
   end
 
-  xit "can return a collection of invoices associated with a merchant from their known orders" do
+  it "can return a collection of invoices associated with a merchant from their known orders" do
     merchant = Fabricate(:merchant)
     invoices = Fabricate.times(32, :invoice, merchant: merchant)
 

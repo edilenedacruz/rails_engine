@@ -6,7 +6,7 @@ class Api::V1::Items::SearchController < ApplicationController
 
   def show
     if params[:unit_price]
-      render json: format_to_currency(Item.find_by(unit_price: format_price(params[:unit_price])).unit_price)
+      render json: Item.find_by(unit_price: params[:unit_price].delete("."))
     else
       render json: Item.find_by(item_params)
     end

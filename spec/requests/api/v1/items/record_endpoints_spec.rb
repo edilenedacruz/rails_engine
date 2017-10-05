@@ -74,7 +74,7 @@ describe "Items API" do
 
     item = JSON.parse(response.body)
     expect(response).to be_success
-    expect((item.to_f * 100).round(2).to_i).to eq(data_item.unit_price)
+    expect(item["unit_price"]).to eq(data_item.unit_price)
   end
 
   it "can search an item by its merchant_id" do
